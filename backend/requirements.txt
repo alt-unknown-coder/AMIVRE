@@ -8,11 +8,10 @@ pydantic>=2.6.0
 pydantic-settings>=2.1.0
 celery>=5.3.6
 redis>=5.0.1
-qdrant-client>=1.7.3
 google-generativeai
 python-jose[cryptography]>=3.3.0
 passlib[bcrypt]>=1.7.4
-bcrypt==3.2.2
+bcrypt==4.1.2
 pre-commit
 langgraph
 langchain
@@ -20,6 +19,5 @@ langchain-google-genai
 pytest
 pytest-asyncio
 httpx
-playwright
-tavily-python
-crawl4ai
+beautifulsoup4
+html2text

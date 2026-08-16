@@ -1,5 +1,6 @@
 import pytest
 from unittest.mock import patch
+from app.agents.base_agent import BaseAgent
 from app.orchestrator.graph import graph
 from app.orchestrator.state import (
     MarketScoutOutput,
@@ -8,6 +9,13 @@ from app.orchestrator.state import (
     TrendOutput,
     RiskModelOutput,
 )
+
+
+def test_base_agent_model_fallback_order():
+    model_candidates = BaseAgent._get_model_candidates("gemini-3.5-flash")
+    assert model_candidates[0] == "gemini-3.5-flash"
+    assert "gemini-2.5-flash" in model_candidates
+    assert "gemini-2.5-flash-lite" in model_candidates
 
 
 @pytest.mark.asyncio

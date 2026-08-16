@@ -14,15 +14,15 @@ class MarketScoutAgent(BaseAgent):
         queries = state.get("market_queries", [])
         job_id = state.get("_job_id")
 
-        self._publish_progress(job_id, "Market_Scout", "AGENT_RUNNING", "Running autonomous market research via Tavily and Crawl4AI...")
+        self._publish_progress(job_id, "Market_Scout", "AGENT_RUNNING", "Running autonomous market research via free search and lightweight extraction...")
 
         # Progress callback to send live updates to frontend
         def progress_callback(msg: str):
             self._publish_progress(job_id, "Market_Scout", "AGENT_RUNNING", msg)
 
-        # Run async scraper in a sync context
+        # Run async scraper in a sync context while remaining safe inside async tests/graph execution.
         from app.scrapers.scraper_runner import build_market_scout_context
-        context_string, raw_data = asyncio.run(
+        context_string, raw_data = self.run_coroutine_in_thread(
             build_market_scout_context(queries, progress_callback)
         )
 

@@ -13,13 +13,13 @@ class TrendForecasterAgent(BaseAgent):
         queries = state.get("trend_queries", [])
         job_id = state.get("_job_id")
 
-        self._publish_progress(job_id, "Trend_Forecaster", "AGENT_RUNNING", "Querying market trends via Tavily and Crawl4AI...")
+        self._publish_progress(job_id, "Trend_Forecaster", "AGENT_RUNNING", "Querying market trends via free search and lightweight extraction...")
 
         def progress_callback(msg: str):
             self._publish_progress(job_id, "Trend_Forecaster", "AGENT_RUNNING", msg)
 
         from app.scrapers.scraper_runner import build_trend_context
-        context_string, raw_data = asyncio.run(
+        context_string, raw_data = self.run_coroutine_in_thread(
             build_trend_context(queries, progress_callback)
         )
 

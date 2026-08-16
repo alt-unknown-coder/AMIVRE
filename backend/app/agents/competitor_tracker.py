@@ -13,13 +13,13 @@ class CompetitorTrackerAgent(BaseAgent):
         queries = state.get("competitor_queries", [])
         job_id = state.get("_job_id")
 
-        self._publish_progress(job_id, "Competitor_Tracker", "AGENT_RUNNING", "Tracking competitors via Tavily and Crawl4AI...")
+        self._publish_progress(job_id, "Competitor_Tracker", "AGENT_RUNNING", "Tracking competitors via free web discovery and source extraction...")
 
         def progress_callback(msg: str):
             self._publish_progress(job_id, "Competitor_Tracker", "AGENT_RUNNING", msg)
 
         from app.scrapers.scraper_runner import build_competitor_context
-        context_string, raw_data = asyncio.run(
+        context_string, raw_data = self.run_coroutine_in_thread(
             build_competitor_context(queries, progress_callback)
         )
 
