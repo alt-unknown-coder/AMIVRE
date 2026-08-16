@@ -20,7 +20,7 @@ class SentimentAnalystAgent(BaseAgent):
 
         from app.scrapers.scraper_runner import build_sentiment_context
         context_string, raw_data = asyncio.run(
-            build_sentiment_context(queries, progress_callback)
+            build_sentiment_context(queries, progress_callback, deep_scan=False)
         )
 
         self._publish_progress(job_id, "Sentiment_Analyst", "AGENT_RUNNING", "Extracting pain points and desires...")

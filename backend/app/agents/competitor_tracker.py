@@ -20,7 +20,7 @@ class CompetitorTrackerAgent(BaseAgent):
 
         from app.scrapers.scraper_runner import build_competitor_context
         context_string, raw_data = asyncio.run(
-            build_competitor_context(queries, progress_callback)
+            build_competitor_context(queries, progress_callback, deep_scan=True)
         )
 
         self._publish_progress(job_id, "Competitor_Tracker", "AGENT_RUNNING", "Mapping competitor strengths and weaknesses...")

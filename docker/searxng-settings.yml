@@ -1,0 +1,44 @@
+# SearXNG settings customization
+# Disables aggressive bot detection that was blocking Docker-internal requests
+
+server:
+  debug: false
+  port: 8080
+  bind_address: "0.0.0.0"
+  secret_key: "{{ SEARXNG_SECRET_KEY | default('supersecret_key_change_this_in_production') }}"
+  base_url: false
+  image_proxy: false
+  default_http_headers:
+    X-Content-Type-Options: "nosniff"
+    X-Frame-Options: "sameorigin"
+    X-XSS-Protection: "1; mode=block"
+    Referrer-Policy: "no-referrer"
+  limiter:
+    enabled: false # Disable request limiter that triggers bot detection
+
+search:
+  safe_search: 0
+  autocomplete: ""
+  autocomplete_min: 4
+
+general:
+  instance_name: "SearXNG"
+  privacypolicy_url: false
+  contact_url: false
+
+ui:
+  static_use_hash: false
+  infinite_scroll: false
+  default_locale: ""
+  query_in_title: false
+  center_alignment: false
+
+# Bot detection settings - relaxed for Docker environments
+botdetection:
+  enabled: false # Disable bot detection for internal Docker network
+  reciprocal_ip: false
+  user_agent:
+    enabled: false
+  ip_lists:
+    enabled: false
+  ip_whitelist: []

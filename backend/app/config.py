@@ -23,9 +23,10 @@ class Settings(BaseSettings):
     MAX_RETRIES: int = 3
     ENVIRONMENT: str = "development"
     ALLOWED_ORIGINS: List[str] = ["http://localhost:3000"]
-    
+
     # Scraper Settings
-    TAVILY_API_KEY: str
+    SEARXNG_URL: str = "http://searxng:8080/search"
+    TAVILY_API_KEY: str | None = None
 
     model_config = SettingsConfigDict(
         env_file=".env", env_file_encoding="utf-8", extra="ignore"

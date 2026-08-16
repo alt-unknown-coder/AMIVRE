@@ -23,7 +23,7 @@ class MarketScoutAgent(BaseAgent):
         # Run async scraper in a sync context
         from app.scrapers.scraper_runner import build_market_scout_context
         context_string, raw_data = asyncio.run(
-            build_market_scout_context(queries, progress_callback)
+            build_market_scout_context(queries, progress_callback, deep_scan=True)
         )
 
         self._publish_progress(job_id, "Market_Scout", "AGENT_RUNNING", "Analyzing market sizing and saturation...")

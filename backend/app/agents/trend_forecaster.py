@@ -20,7 +20,7 @@ class TrendForecasterAgent(BaseAgent):
 
         from app.scrapers.scraper_runner import build_trend_context
         context_string, raw_data = asyncio.run(
-            build_trend_context(queries, progress_callback)
+            build_trend_context(queries, progress_callback, deep_scan=False)
         )
 
         self._publish_progress(job_id, "Trend_Forecaster", "AGENT_RUNNING", "Decoding market momentum...")
